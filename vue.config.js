@@ -1,5 +1,6 @@
 module.exports = {
-  lintOnSave: 'default',
+  outputDir: "docs",
+  lintOnSave: "default",
   devServer: {
     overlay: {
       warnings: true,

@@ -1,32 +1,47 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div class="root" ref="root">
+    <div class="content">
+      <VueHeader />
+      <router-view class="content__main" />
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import VueHeader from "@/components/Base/VueHeader"
+
+export default {
+  components: {
+    VueHeader,
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.root {
+  min-width: 100vw;
+  min-height: 100vh;
+
+  max-width: 100vw;
+  max-height: 100vh;
+
+  background-color: #021827;
 }
 
-#nav {
-  padding: 30px;
+.content {
+  max-width: 500px;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: auto;
+  margin: auto;
+  background-color: #02193B;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.content__main {
+  flex-grow: 1;
+  overflow: auto;
 }
 </style>

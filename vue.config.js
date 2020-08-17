@@ -1,3 +1,9 @@
 module.exports = {
-  lintOnSave: false
+  lintOnSave: 'default',
+  devServer: {
+    overlay: {
+      warnings: true,
+      errors: true,
+    },
+  },
 }

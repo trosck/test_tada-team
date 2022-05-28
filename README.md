@@ -1,5 +1,7 @@
 # todo_team
 
+Test task, realisation simple todo-list
+
 ## Project setup
 ```
 yarn install

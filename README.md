@@ -8,5 +8,5 @@ Check on [Github Pages](https://trosck.github.io/test_tada-team/)
 
 ## Local run
 ```
-git clone https://github.com/trosck/test_tada-team.git && cd test_tada-team && yarn serve
+git clone https://github.com/trosck/test_tada-team.git && cd test_tada-team && yarn && yarn serve
 ```

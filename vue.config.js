@@ -1,6 +1,6 @@
 module.exports = {
   publicPath: process.env.NODE_ENV === "production"
-    ? "/todo_team/"
+    ? "/test_tada-team/"
     : "/",
   outputDir: "docs",
   lintOnSave: "default",

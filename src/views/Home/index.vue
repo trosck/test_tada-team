@@ -6,7 +6,7 @@
     <div v-else class="message-box" ref="messageBox">
       <div
         class="message-box__item"
-        v-for="chatItem in chatList"
+        v-for="chatItem in chatListAscSorted"
         :key="chatItem._id"
       >
         <div v-if="chatItem._type === 'invited'" class="invited">
@@ -26,12 +26,11 @@
 </template>
 
 <script>
-import MessageText from "./MessageText"
-import MessageInvited from "./MessageInvited"
-
-import InputField from "./InputField"
-
 import VueLoader from "@/components/VueLoader"
+
+import MessageText from "./components/MessageText"
+import MessageInvited from "./components/MessageInvited"
+import InputField from "./components/InputField"
 
 import { mapGetters, mapActions, } from "vuex"
 export default {
@@ -55,7 +54,7 @@ export default {
   },
 
   watch: {
-    chatList() {
+    chatListAscSorted() {
       if (!this.messageBoxElement) return
 
       this.$nextTick(( ) => {
@@ -77,7 +76,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      "chatList",
+      "chatListAscSorted",
       "username",
       "loading",
     ]),

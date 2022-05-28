@@ -1,4 +1,5 @@
 require("dotenv").config()
+
 import "./assets/reset.css"
 
 import Vue from 'vue'
@@ -11,5 +12,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: function (h) { return h(App) }
+  render: h => h(App)
 }).$mount('#app')

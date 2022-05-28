@@ -41,6 +41,7 @@ export default {
     ]),
     async getLogin() {
       const { value } = this.inputName
+
       if (!value || value.length < 4) {
         this.inputName.error = true
       }

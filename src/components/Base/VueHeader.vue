@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    todo.team
+    tada.team
   </header>
 </template>
 

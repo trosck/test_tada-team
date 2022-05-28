@@ -1,26 +1,12 @@
 # todo_team
 
-Test task, realisation simple chat on vue
+Test task of realisation simple chat on Vue   
+with websockets. Currently doesn't work   
+because websockets closed..   
 
-## Project setup
-```
-yarn install
-```
+Check on [Github Pages](https://trosck.github.io/test_tada-team/)
 
-### Compiles and hot-reloads for development
+## Local run
 ```
-yarn serve
+git clone https://github.com/trosck/test_tada-team.git && cd test_tada-team && yarn && yarn serve
 ```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

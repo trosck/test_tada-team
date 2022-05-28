@@ -1,6 +1,6 @@
 # todo_team
 
-Test task, realisation simple todo-list
+Test task, realisation simple chat on vue
 
 ## Project setup
 ```

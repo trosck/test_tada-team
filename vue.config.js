@@ -1,6 +1,6 @@
 module.exports = {
   publicPath: process.env.NODE_ENV === "production"
-    ? "/test_tada-team/"
+    ? "/vue-ws-chat/"
     : "/",
   outputDir: "docs",
   lintOnSave: "default",

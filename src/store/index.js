@@ -11,10 +11,10 @@ export default new Vuex.Store({
     chatList: [],
     isLogin: false,
     loading: false,
-    username: "",
+    username: '',
     someoneTyping: {
       bool: false,
-      name: "",
+      name: '',
     }
   },
 
@@ -42,48 +42,75 @@ export default new Vuex.Store({
       commit("setLogin", true)
     },
 
-    resolveMessageData({ commit, getters }, event) {
-      const username = getters.username
-      try {
-        const data = JSON.parse(event.data)
-  
-        if (data.typing) return
-  
-        data._type = data.name ? "message" : "invited"
-        data._id = Date.now()
-        data._self = data.name === username
-  
-        commit("addMessage", data)
-      } catch(error) {
-        console.error(error)
-      }
+    resolveMessageData({ commit, getters: { username } }, message) {
+      message._type = message.username ? "message" : "invited"
+      message._self = message.username === username
+      commit("addMessage", message)
     },
 
-    initWSConnection({ commit, dispatch }) {
-  
+    async initWSConnection({ commit, dispatch }) {
+
       commit("setLoading", true)
-
-      const badData = JSON.stringify({
-        data: { text: "Connection is closed" } 
-      })
   
-      try {
+      return new Promise((resolve, reject) => {
         const ws = new WebSocket(process.env.VUE_APP_CHAT_WS_ADRESS)
-        ws.onmessage = event => dispatch("resolveMessageData", event)
-        ws.onopen = () => commit("setLoading", false)
-        ws.onclose = () => dispatch("resolveMessageData", badData)
-        ws.onerror = () => dispatch("resolveMessageData", badData)
-  
+
+        ws.onmessage = ({ data: eventData }) => {
+          const { type, data } = JSON.parse(eventData)
+
+          switch(type) {
+
+            case 'get-all': {
+              return data.forEach(
+                item => dispatch("resolveMessageData", item)
+              )
+            }
+
+            case 'push': {
+              return dispatch("resolveMessageData", data)
+            }
+          }
+        }
+
+        ws.onopen = () => {
+          commit("setLoading", false)
+          resolve()
+        }
+
+        const onClose = () => {
+          reject()
+          dispatch(
+            "resolveMessageData",
+            JSON.stringify({
+              data: { text: "Connection is closed" } 
+            })
+          )
+        }
+
+        ws.onclose = onClose
+        ws.onerror = onClose
+
         commit("setSocket", ws)
-      } catch(error) {
-        console.error(error)
-        commit("setLoading", false)
-      }
+      })
     },
 
-    sendMessage({ state }, text) {
-      state.socket.send(
-        JSON.stringify({ text }) 
+    async loadAllMessages({ dispatch }) {
+      dispatch(
+        'sendMessage',
+        { type: 'get-all' }
+      )
+    },
+
+    async sendMessage(
+      { state: { username, socket } },
+      { value = '', type = 'push' }
+    ) {
+      socket.send(
+        JSON.stringify({
+          value,
+          username,
+          type
+        })
       )
     },
   },

@@ -6,12 +6,14 @@
       @keyup-enter="getLogin"
       label="Please, enter your name"
     />
+
     <div 
       class="login__error" 
       v-if="inputName.error"
     >
       Nickname must be at least 4 characters
     </div>
+
     <VueButton @click="getLogin" label="login" class="login__button" />
   </div>
 </template>

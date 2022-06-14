@@ -59,7 +59,7 @@ export default new Vuex.Store({
       }
     },
 
-    initWebSocket({ commit, dispatch, getters }) {
+    initWSConnection({ commit, dispatch, getters }) {
   
       commit("setLoading", true)
   
@@ -93,8 +93,8 @@ export default new Vuex.Store({
     isLogin: state => state.isLogin,
     username: state => state.username,
     loading: state => state.loading,
-    chatListAscSorted: state => state.chatList.sort(
-      (a, b) => byDateAsc(a.created, b.created)
-    ),
+    chatListAscSorted: state => []
+      .concat(state.chatList)
+      .sort(byDateAsc('created')),
   },
 })

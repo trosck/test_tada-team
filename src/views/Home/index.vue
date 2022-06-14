@@ -71,7 +71,7 @@ export default {
   },
 
   created() {
-    this.initWebSocket()
+    this.initWSConnection()
   },
 
   computed: {
@@ -85,7 +85,7 @@ export default {
     ...mapActions([
       "resolveMessageData",
       "sendMessage",
-      "initWebSocket",
+      "initWSConnection",
     ]),
     sendChatMessage() {
       const { value } = this.inputMessage

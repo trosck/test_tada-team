@@ -1,40 +1,28 @@
 <template>
   <div class="container login">
-    <VueInput 
-      v-model="inputName.value" 
-      :error="inputName.error" 
-      @keyup-enter="getLogin"
-      label="Please, enter your name"
-    />
+    <v-text-field
+      v-model="input"
+      @keyup.enter="getLogin"
+      label="Please, enter nickname"
+      autofocus
+    ></v-text-field>
 
-    <div 
-      class="login__error" 
-      v-if="inputName.error"
+    <v-btn
+      elevation="2"
+      @click="getLogin"
     >
-      Nickname must be at least 4 characters
-    </div>
-
-    <VueButton @click="getLogin" label="login" class="login__button" />
+      login
+    </v-btn>
   </div>
 </template>
 
 <script>
-import VueInput from "@/components/Base/VueInput"
-import VueButton from "@/components/Base/VueButton"
-
 import { mapActions } from "vuex"
 export default {
-  name: "login",
-  components: {
-    VueInput,
-    VueButton,
-  },
+  name: "Login",
   data() {
     return {
-      inputName: {
-        value: "",
-        error: false,
-      }
+      input: ''
     }
   },
   methods: {
@@ -42,15 +30,8 @@ export default {
       "loginUser",
     ]),
     async getLogin() {
-      const { value } = this.inputName
-
-      if (!value || value.length < 4) {
-        this.inputName.error = true
-      }
-      else {
-        await this.loginUser(value)
-        this.$router.push({ name: "home" })
-      }
+      await this.loginUser(this.input)
+      this.$router.push({ name: "home" })
     }
   }
 }

@@ -1,4 +1,4 @@
-# todo_team
+# vue-ws-chat
 
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/trosck/vue-ws-chat/Build%20and%20Deploy/main)
 ![GitHub branch checks state](https://img.shields.io/github/checks-status/trosck/vue-ws-chat/main)

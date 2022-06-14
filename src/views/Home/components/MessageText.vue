@@ -8,7 +8,7 @@
         {{data.name}}
       </div>
       <div class="message__text">
-        {{ data.text }}
+        {{ data.value }}
       </div>
     </div>
   </div>

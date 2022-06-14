@@ -70,27 +70,29 @@ export default {
     }
   },
 
-  created() {
-    this.initWSConnection()
+  async created() {
+    await this.initWSConnection()
+    await this.loadAllMessages()
   },
 
   computed: {
     ...mapGetters([
-      "chatListAscSorted",
-      "username",
-      "loading",
+      'chatListAscSorted',
+      'username',
+      'loading',
     ]),
   },
   methods: {
     ...mapActions([
-      "resolveMessageData",
-      "sendMessage",
-      "initWSConnection",
+      'resolveMessageData',
+      'sendMessage',
+      'initWSConnection',
+      'loadAllMessages'
     ]),
     sendChatMessage() {
       const { value } = this.inputMessage
       if (value.length) {
-        this.sendMessage(value)
+        this.sendMessage({ value })
         this.inputMessage.value = ""
       }
     },

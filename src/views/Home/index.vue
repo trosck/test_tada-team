@@ -1,54 +1,46 @@
 <template>
-  <div class="container">
-    
-    <VueLoader v-if="loading" class="message-box" />
-
-    <div v-else class="message-box" ref="messageBox">
-      <div
-        class="message-box__item"
-        v-for="chatItem in chatListAscSorted"
-        :key="chatItem._id"
+  <div
+    class="container home-page"
+    ref=container
+  >
+    <v-list>
+      <v-list-item
+        v-for="message in chatListAscSorted"
+        :key="message._id"
       >
-        <div v-if="chatItem._type === 'invited'" class="invited">
-          <MessageInvited :data="chatItem.text" />
-        </div>
+        <v-list-item-content>
+          <v-list-item-title v-text="message.value"></v-list-item-title>
+          <v-list-item-subtitle v-text="message.username"></v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
 
-        <MessageText class="message-box__message" v-else :data="chatItem" />
-      </div>
-    </div>
+    <v-bottom-navigation
+      color="white"
+      class="bottom-navigation"
+    >
+      <v-text-field
+        v-model="inputMessage"
+        @keyup.enter="sendChatMessage"
+      />
 
-    <InputField 
-      class="message-box__input-field"
-      v-model="inputMessage.value" 
-      @message="sendChatMessage" 
-    />
+      <v-btn
+        @click="sendChatMessage"
+      >
+        Send
+      </v-btn>
+    </v-bottom-navigation>
   </div>
 </template>
 
 <script>
-import VueLoader from "@/components/VueLoader"
-
-import MessageText from "./components/MessageText"
-import MessageInvited from "./components/MessageInvited"
-import InputField from "./components/InputField"
-
 import { mapGetters, mapActions, } from "vuex"
 export default {
   name: "Home",
-  
-  components: {
-    MessageText,
-    MessageInvited,
-    InputField,
-    VueLoader,
-  },
 
   data() {
     return {
-      inputMessage: {
-        value: "",
-        error: ""
-      },
+      inputMessage: '',
       messageBoxElement: null,
     }
   },
@@ -64,7 +56,8 @@ export default {
     loading(load) {
       if (!load) {
         this.$nextTick(( ) => {
-          this.messageBoxElement = this.$refs.messageBox
+          this.messageBoxElement = this.$refs.container
+          this.scrollToEnd(this.messageBoxElement)
         })
       }
     }
@@ -89,15 +82,17 @@ export default {
       'initWSConnection',
       'loadAllMessages'
     ]),
+
     sendChatMessage() {
-      const { value } = this.inputMessage
+      const value = this.inputMessage
       if (value.length) {
         this.sendMessage({ value, type: 'push' })
-        this.inputMessage.value = ""
+        this.inputMessage = ''
       }
     },
-    scrollToEnd(elem) {
-      elem.scrollTo(0, elem.scrollHeight)
+
+    scrollToEnd(el) {
+      el.scrollTo(0, el.scrollHeight)
     },
   },
 }
@@ -109,34 +104,15 @@ export default {
   flex-direction: column;
 }
 
-.message-box {
-  flex-grow: 1;
+.home-page {
+  height: 85vh;
   overflow: auto;
-}
+  max-width: 500px;
+  position: relative;
 
-.message-box__input-field {
-  padding: 20px;
-
-  box-shadow: 3px 0px 10px 0px #021827;
-  box-sizing: border-box;
-  z-index: 1;
-}
-
-.message-box__item {
-  display: flex;
-}
-
-.message-box__item:not(:first-child) .message {
-  margin-top: 10px;
-}
-
-.message-box__item:last-child {
-  margin-bottom: 10px;
-}
-
-.invited {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  .bottom-navigation {
+    position: sticky;
+    bottom: 0;
+  }
 }
 </style>

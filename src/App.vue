@@ -6,7 +6,7 @@
       dark
       class="header"
     >
-      <a href="/" class="text-h5 title">
+      <a href="https://github.com/trosck/vue-ws-chat" class="text-h5 title">
         vue-ws-chat <v-icon>mdi-github</v-icon>
       </a>
     </v-app-bar>

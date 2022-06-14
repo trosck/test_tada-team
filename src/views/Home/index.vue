@@ -3,23 +3,26 @@
     class="container home-page"
     ref=container
   >
-    <v-list>
-      <v-list-item
-        v-for="message in chatListAscSorted"
-        :key="message._id"
-      >
-        <v-list-item-content>
-          <v-list-item-title v-text="message.value"></v-list-item-title>
-          <v-list-item-subtitle v-text="message.username"></v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
+    <v-card
+      tile
+      v-for="message in chatListAscSorted"
+      :key="message._id"
+    >
+      <v-card-subtitle>
+        {{ message.username }}
+      </v-card-subtitle>
+
+      <v-card-text>
+        {{ message.value }}
+      </v-card-text>
+    </v-card>
 
     <v-bottom-navigation
       color="white"
       class="bottom-navigation"
     >
       <v-text-field
+        autofocus
         v-model="inputMessage"
         @keyup.enter="sendChatMessage"
       />
@@ -40,26 +43,21 @@ export default {
 
   data() {
     return {
-      inputMessage: '',
-      messageBoxElement: null,
+      inputMessage: ''
     }
   },
 
   watch: {
     chatListAscSorted() {
-      if (!this.messageBoxElement) return
+      const el = this.$refs.container
 
-      this.$nextTick(( ) => {
-        this.scrollToEnd(this.messageBoxElement)
+      console.log(el.scrollHeight - el.scrollTop - el.offsetHeight)
+      if (!el) return
+      if (el.scrollHeight - el.scrollTop - el.offsetHeight > 200) return
+
+      this.$nextTick(() => {
+        el.scrollTo(0, el.scrollHeight)
       })
-    },
-    loading(load) {
-      if (!load) {
-        this.$nextTick(( ) => {
-          this.messageBoxElement = this.$refs.container
-          this.scrollToEnd(this.messageBoxElement)
-        })
-      }
     }
   },
 
@@ -89,11 +87,7 @@ export default {
         this.sendMessage({ value, type: 'push' })
         this.inputMessage = ''
       }
-    },
-
-    scrollToEnd(el) {
-      el.scrollTo(0, el.scrollHeight)
-    },
+    }
   },
 }
 </script>
@@ -107,7 +101,6 @@ export default {
 .home-page {
   height: 85vh;
   overflow: auto;
-  max-width: 500px;
   position: relative;
 
   .bottom-navigation {

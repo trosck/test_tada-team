@@ -69,7 +69,7 @@ export default new Vuex.Store({
       })
   
       try {
-        const ws = new WebSocket(`${process.env.VUE_APP_CHAT_WS_ADRESS}/ws?name=${username}`)
+        const ws = new WebSocket(`${process.env.CHAT_WS_ADRESS}/ws?name=${username}`)
         ws.onmessage = event => dispatch("resolveMessageData", event)
         ws.onopen = () => commit("setLoading", false)
         ws.onclose = () => dispatch("resolveMessageData", badData)

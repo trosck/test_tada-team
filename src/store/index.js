@@ -59,17 +59,16 @@ export default new Vuex.Store({
       }
     },
 
-    initWSConnection({ commit, dispatch, getters }) {
+    initWSConnection({ commit, dispatch }) {
   
       commit("setLoading", true)
-  
-      const username = getters.username
+
       const badData = JSON.stringify({
         data: { text: "Connection is closed" } 
       })
   
       try {
-        const ws = new WebSocket(`${process.env.CHAT_WS_ADRESS}/ws?name=${username}`)
+        const ws = new WebSocket(process.env.VUE_APP_CHAT_WS_ADRESS)
         ws.onmessage = event => dispatch("resolveMessageData", event)
         ws.onopen = () => commit("setLoading", false)
         ws.onclose = () => dispatch("resolveMessageData", badData)

@@ -92,7 +92,7 @@ export default {
     sendChatMessage() {
       const { value } = this.inputMessage
       if (value.length) {
-        this.sendMessage({ value })
+        this.sendMessage({ value, type: 'push' })
         this.inputMessage.value = ""
       }
     },

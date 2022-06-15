@@ -4,8 +4,7 @@
 ![GitHub branch checks state](https://img.shields.io/github/checks-status/trosck/vue-ws-chat/main)
 
 Test task of realisation simple chat on Vue   
-with websockets. Currently doesn't work   
-because websockets closed..   
+with websockets.   
 
 Using [Deploy to GitHub Pages](https://github.com/marketplace/actions/deploy-to-github-pages) for build   
 and push in **gh-pages** branch which   

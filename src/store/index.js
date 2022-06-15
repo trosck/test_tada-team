@@ -3,7 +3,7 @@ import Vuex from "vuex"
 
 Vue.use(Vuex)
 
-import { byDateAsc } from "@/plugins/sort"
+import { byDateAsc } from "@/utils/sort"
 
 export default new Vuex.Store({
   state: {

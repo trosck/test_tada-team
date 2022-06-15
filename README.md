@@ -11,6 +11,13 @@ and push in **gh-pages** branch which
 deploys to [Github Pages](https://trosck.github.io/vue-ws-chat/)
 
 ## Local run
+
+### yarn
 ```
-git clone https://github.com/trosck/test_tada-team.git && cd test_tada-team && yarn && yarn serve
+git clone https://github.com/trosck/vue-ws-chat.git && cd vue-ws-chat && yarn && yarn serve
+```
+
+### npm
+```
+git clone https://github.com/trosck/vue-ws-chat.git && cd vue-ws-chat && npm i && npm run serve
 ```
